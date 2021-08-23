@@ -1,37 +1,41 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
 
-var passwordText;
-
-var upperCase = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-var lowerCase = "abcdefghijklmnopqrstuvwxyz";
-
-var number = "0123456789";
-
-var symbol = "~!@#$%^&*()<>[]{}-=_+";
-
-
-
-
-
-// Write password to the #password input
-function writePassword() {
-    var password = generatePassword();
-    var passwordText = document.querySelector("#password");
-
-    passwordText.value = password;
-
-}
-
 function generatePassword() {
-    var confirmLowerCase = confirm("Would you like to include lowercase characters?")
+    var passwordText = [];
 
-    var confirmUpperCase = confirm("Would you like to include uppercase characters?")
+    var upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
 
-    var confirmNumber = confirm("Would you like to add numbers?")
+    var lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
 
-    var confirmSymbol = confirm("Would you like to add symbols?")
+    var number = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
+
+    var symbol = ["~", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "<", ">", "[", "]", "{", "}", "-", "=", "_", "+"];
+
+    var characters = [];
+
+    var confirmLowerCase = confirm("Would you like to include lowercase characters?");
+    if (confirmLowerCase) {
+        characters = characters.concat(lowerCase);
+    }
+
+
+    var confirmUpperCase = confirm("Would you like to include uppercase characters?");
+    if (confirmUpperCase) {
+        characters = characters.concat(upperCase);
+    }
+
+
+    var confirmNumber = confirm("Would you like to add numbers?");
+    if (confirmNumber) {
+        characters = characters.concat(number);
+    }
+
+
+    var confirmSymbol = confirm("Would you like to add symbols?");
+    if (confirmSymbol) {
+        characters = characters.concat(symbol);
+    }
 
 
     var passwordLength = prompt("How many characters would you like your password to be? (8-128 chracters)");
@@ -42,14 +46,30 @@ function generatePassword() {
     }
 
     else if (isNaN(passwordLength)) {
-        alert("Please enter number's only.");
+        alert("Please enter numbers only.");
     }
+// for loops create passwords on selection criteria
+    for (var i = 0; i < passwordLength; i++) {
+        console.log(i);
+        passwordText += characters[Math.floor(Math.random() * characters.length)]
+    }
+
+    return passwordText;
+}
+
+
+// Write password to the #password input
+
+function writePassword() {
+    var password = generatePassword();
+    var passwordText = document.querySelector("#password");
+
+    passwordText.value = password;
+
 }
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
-
-
 
 
 // User Story
